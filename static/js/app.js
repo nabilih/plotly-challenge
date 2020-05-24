@@ -17,6 +17,7 @@ function init() {
     updateCharts(selectedName);
     updateDemographicInfo(selectedName);
     updateGauge(selectedName);
+
   });
 };
 
@@ -66,7 +67,7 @@ function updateCharts(selectedName){
             mode: 'markers',
             marker: {
                 size: values,
-                sizemode: 'area',
+                sizemode: 'diameter',
                 color: otu_ids,
             }
         };
@@ -78,7 +79,7 @@ function updateCharts(selectedName){
         var layout_bubble = {
             xaxis: {title: 'OTU ID'},
             height: 600,
-            width: 800
+            width: 1000
         };
 
         //draw bubble plot
@@ -114,17 +115,15 @@ function updateDemographicInfo(selectedName){
 
         // check if we have the data
         // console.log(filteredData);
-        
+
         //place data in the designated div on html called sample-metadata
         var metadata_div = d3.select("#sample-metadata");
         metadata_div.html(""); //clear the section first
         //for each of the items in the dictionary, append key and value
-        Object.entries(filteredData).forEach(item => {
+        Object.entries(filteredData).forEach(([key, value]) => {
             metadata_div.append("h4")
-                .text(item[0] + ": " + item[1] + "\n");
-                
+                .text(key + ": " + value + "\n");    
         });
-
     });
 
 };
